@@ -1,6 +1,7 @@
 console.log("script init");
 export default () => {
   const content = document.querySelector(".content");
+
   return fetch("./pages/movies/movies.html")
     .then((response) => response.text())
     .then((moviesHtml) => {
@@ -9,27 +10,25 @@ export default () => {
       const form = document.querySelector("form");
 
       form.addEventListener("submit", (event) => {
-
-      //const movieUrl = `${window.apiUrl}/api/movie`;
-      let movieUrl = "http://localhost:8080/api/movie";
+        event.preventDefault();
+      const movieUrl = `${window.apiUrl}/api/movie`;
       fetch(movieUrl, {
         method: "POST",
         headers: {
-          'Accept': 'application/json;',
           'Content-type': 'application/json; charset=UTF-8'
         },
         body: JSON.stringify({
           title: document.querySelector("#movieTitle").value,
           description: document.querySelector("#movie-desc").value,
-          ageRestriction: document.querySelector("#age").value,
+          ageRestriction: Number(document.querySelector("#age").value),
           startdate: document.querySelector("#movie-start-date").value,
           endDate: document.querySelector("#movie-end-date").value,
-          rating: document.querySelector("#movie-rating").value,
+          rating: Number(document.querySelector("#movie-rating").value),
           poster: document.querySelector("#movie-poster").value,
-        })   
-      }).then((Response) => Response.json())
-      .then((movie) => {
-        console.log(movie.title);
+        }),  
+      }).then((response) => response.json())
+      .then((response) => {
+        console.log(response);
       });
      
     });

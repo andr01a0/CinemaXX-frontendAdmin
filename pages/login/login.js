@@ -11,7 +11,7 @@ export default () => {
         // Make sure the form is not submitted
         event.preventDefault();
         // endpoint for logging in
-        const apiUrl = "http://54.175.181.176:9090/api/authenticate/login";
+        const apiUrl = `${window.apiUrl}/api/authenticate/login`;
 
         fetch(apiUrl, {
           method: "POST",
