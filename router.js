@@ -3,6 +3,7 @@ import renderAbout from "./pages/about/about.js";
 import renderMovie from "./pages/movie/movie.js";
 import renderLogin from "./pages/login/login.js";
 import renderMovies from "./pages/movies/movies.js";
+import renderEditMovie from "./pages/movie/edit.js";
 
 export default function () {
   const router = new Navigo("/", { hash: true });
@@ -25,6 +26,9 @@ export default function () {
       },
       "/movie/:id/": ({ data, params }) => {
         renderMovie(data.id);
+      },
+      "movie/:id/edit": ({ data }) => {
+        renderEditMovie(data.id);
       },
     })
     .resolve();
