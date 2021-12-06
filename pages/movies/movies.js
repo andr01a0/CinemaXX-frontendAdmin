@@ -9,7 +9,7 @@ export default () => {
       const form = document.querySelector("form");
       form.addEventListener("submit", (event) => {
         event.preventDefault();
-        let movieUrl = "http://localhost:8080/api/movie";
+        let movieUrl = `${window.apiUrl}/api/movie`;
 
         fetch(movieUrl, {
           method: "POST",
