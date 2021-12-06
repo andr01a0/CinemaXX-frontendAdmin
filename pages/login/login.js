@@ -12,6 +12,7 @@ export default () => {
         event.preventDefault();
         // endpoint for logging in
         const apiUrl = `${window.apiUrl}/api/authenticate/login`;
+        //const apiUrl = "http://localhost:9090/api/authenticate/login";
 
         fetch(apiUrl, {
           method: "POST",

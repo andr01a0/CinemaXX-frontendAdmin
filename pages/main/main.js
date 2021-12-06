@@ -6,9 +6,7 @@ export default () => {
     .then((mainHtml) => {
       content.innerHTML = mainHtml;
 
-      fetch(
-        "http://localhost:8080/api/movie?startRange=2021-10-01&endRange=2021-12-31"
-      )
+      fetch(`${window.apiUrl}/api/movie/`)
         .then((Response) => Response.json())
         .then((movies) => console.log(movies));
     });

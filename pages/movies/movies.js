@@ -9,7 +9,7 @@ export default () => {
       const form = document.querySelector("form");
       form.addEventListener("submit", (event) => {
         event.preventDefault();
-        let movieUrl = "http://localhost:8080/api/movie";
+        let movieUrl = `${window.apiUrl}/api/movie`;
 
         fetch(movieUrl, {
           method: "POST",
@@ -28,11 +28,11 @@ export default () => {
         })
           .then((Response) => Response.json())
           .then(({ message }) => alert(message));
+        location.href = "#/movies";
+        location.reload();
       });
 
-      fetch(
-        `${window.apiUrl}/api/movie?startRange=2021-10-01&endRange=2021-12-31`
-      )
+      fetch(`${window.apiUrl}/api/movie/`)
         .then((response) => response.json())
         .then((movies) => {
           const movieContainer = document.querySelector(".movie-container");
