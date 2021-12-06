@@ -15,8 +15,8 @@ export default () => {
           method: "POST",
           body: JSON.stringify({
             title: document.querySelector("#movieTitle").value,
-            description: document.querySelector("#movie-desc").value,
             ageRestriction: document.querySelector("#age").value,
+            description: document.querySelector("#movie-desc").value,
             startDate: document.querySelector("#movie-start-date").value,
             endDate: document.querySelector("#movie-end-date").value,
             rating: document.querySelector("#movie-rating").value,
