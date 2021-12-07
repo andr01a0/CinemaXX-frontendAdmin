@@ -6,30 +6,16 @@ export default () => {
     .then((moviesHtml) => {
       content.innerHTML = moviesHtml;
 
-      const form = document.querySelector("form");
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        let movieUrl = "http://localhost:8080/api/movie";
-
-        fetch(movieUrl, {
-          method: "POST",
-          body: JSON.stringify({
-            title: document.querySelector("#movieTitle").value,
-            description: document.querySelector("#movie-desc").value,
-            ageRestriction: document.querySelector("#age").value,
-            startDate: document.querySelector("#movie-start-date").value,
-            endDate: document.querySelector("#movie-end-date").value,
-            rating: document.querySelector("#movie-rating").value,
-            poster: document.querySelector("#movie-poster").value,
-          }),
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-        })
-          .then((Response) => Response.json())
-          .then(({ message }) => alert(message));
+      // Button to add movie
+      const addMovieContainer = document.querySelector(".add-movie");
+      const addButton = document.createElement("button");
+      addButton.textContent = "Movie";
+      addMovieContainer.appendChild(addButton);
+      addButton.addEventListener("click", function () {
+        location.href = `#/addMovie`;
       });
 
+      // Create movie list
       fetch(
         `${window.apiUrl}/api/movie?startRange=2021-10-01&endRange=2021-12-31`
       )
@@ -37,27 +23,31 @@ export default () => {
         .then((movies) => {
           const movieContainer = document.querySelector(".movie-container");
 
-          // Build DOM
+          // List title
           movies.forEach((movie) => {
-            // Add title
-            const movieList = document.createElement("ul");
-            content.appendChild(movieList);
-            const movieRow = document.createElement("li");
-            movieRow.innerText = movie.title;
-            content.appendChild(movieRow);
-
-            // Add edit button
+            const movieTable = document.querySelector('.table');
+            const movieRow = document.createElement("tr");
+            movieTable.appendChild(movieRow);
+            const movieCol = document.createElement("td");
+            movieRow.appendChild(movieCol);
+            movieRow.textContent = movie.title;
+            
+            // Edit button
             const editButton = document.createElement("button");
-            editButton.textContent = "edit";
-            movieRow.appendChild(editButton);
+            editButton.textContent = "Edit";
+            const editCol = document.createElement("td");
+            editCol.appendChild(editButton);
+            movieRow.appendChild(editCol);
             editButton.addEventListener("click", function () {
               location.href = `#/movie/${movie.movieId}/edit`;
             });
 
-            // Add delete button
+            // Delete button
             const deleteButton = document.createElement("button");
-            deleteButton.textContent = "delete";
-            movieRow.appendChild(deleteButton);
+            deleteButton.textContent = "Delete";
+            const deleteCol = document.createElement("td");
+            deleteCol.appendChild(deleteButton);
+            movieRow.appendChild(deleteCol);
             deleteButton.addEventListener("click", async function () {
               const deleteResponse = await fetch(
                 `${window.apiUrl}/api/movie/${movie.movieId}`,
