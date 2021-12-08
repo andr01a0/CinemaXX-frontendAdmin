@@ -26,6 +26,7 @@ export default () => {
           .then((response) => response.json())
           .then((response) => {
             if (response.token) {
+              console.log(response);
               // Saving the JWT to local storage
               localStorage.setItem("user", JSON.stringify(response.token));
               location.href = "/";
