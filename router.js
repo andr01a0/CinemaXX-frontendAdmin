@@ -8,7 +8,8 @@ import renderEditMovie from "./pages/movie/edit.js";
 
 
 export default function () {
-  const router = new Navigo("/", { hash: true });
+  //const router = new Navigo("/", { hash: true });
+  window.router = new Navigo("/", { hash: true });
 
   router
     .on({

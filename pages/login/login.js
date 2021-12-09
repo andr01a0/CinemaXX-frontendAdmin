@@ -28,7 +28,7 @@ export default () => {
             if (response.token) {
               // Saving the JWT to local storage
               localStorage.setItem("user", JSON.stringify(response.token));
-              location.href = "/";
+              window.router.navigate('/');
             }
           });
       });

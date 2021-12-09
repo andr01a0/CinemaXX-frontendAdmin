@@ -12,7 +12,7 @@ export default () => {
       addButton.textContent = "Movie";
       addMovieContainer.appendChild(addButton);
       addButton.addEventListener("click", function () {
-        location.href = `#/addMovie`;
+        window.router.navigate('/addMovie');
       });
 
       // Create movie list
@@ -39,7 +39,7 @@ export default () => {
             editCol.appendChild(editButton);
             movieRow.appendChild(editCol);
             editButton.addEventListener("click", function () {
-              location.href = `#/movie/${movie.movieId}/edit`;
+              window.router.navigate(`movie/${movie.movieId}/edit`)
             });
 
             // Delete button
@@ -55,7 +55,7 @@ export default () => {
               );
               const { message } = await deleteResponse.json();
               alert(message);
-              location.href = "#/movies";
+              window.router.navigate('/movies');
               location.reload();
             });
           });

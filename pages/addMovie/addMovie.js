@@ -28,7 +28,7 @@ export default () => {
         })
           .then((Response) => Response.json())
           .then(({ message }) => alert(message));
-          location.href = "#/movies";
+          window.router.navigate('/movies');
           location.reload();
       });
       })
