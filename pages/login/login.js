@@ -1,37 +1,43 @@
-export default () => {
+export default async () => {
   const content = document.querySelector(".content");
 
-  return fetch("./pages/login/login.html")
-    .then((response) => response.text())
-    .then((loginHtml) => {
-      content.innerHTML = loginHtml;
+  const loginResponse = await fetch("./pages/login/login.html");
+  const loginHtml = await loginResponse.text();
+  content.innerHTML = loginHtml;
 
-      const form = document.querySelector("form");
-      form.addEventListener("submit", (event) => {
-        // Make sure the form is not submitted
-        event.preventDefault();
-        // endpoint for logging in
-        const apiUrl = `${window.apiUrl}/api/authenticate/login`;
-        //const apiUrl = "http://localhost:9090/api/authenticate/login";
+  const form = document.querySelector("form");
+  const errorMessage = document.querySelector(".error-message");
 
-        fetch(apiUrl, {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-          body: JSON.stringify({
-            username: document.querySelector(".username").value,
-            password: document.querySelector(".password").value,
-          }),
-        })
-          .then((response) => response.json())
-          .then((response) => {
-            if (response.token) {
-              // Saving the JWT to local storage
-              localStorage.setItem("user", JSON.stringify(response.token));
-              window.router.navigate("/");
-            }
-          });
-      });
+  form.addEventListener("submit", async (event) => {
+    // Make sure the form is not submitted
+    event.preventDefault();
+    // endpoint for logging in
+    const apiUrl = `${window.apiUrl}/api/authenticate/login`;
+
+    try {
+
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify({
+        username: document.querySelector(".username").value,
+        password: document.querySelector(".password").value,
+      }),
     });
+
+    if (!response.ok || response.status === 401) {
+      errorMessage.style.display = 'block'
+      return
+    }
+
+    const responseJson = await response.json();
+
+    // Saving the JWT to local storage
+    localStorage.setItem("user", JSON.stringify(responseJson.token));
+    window.router.navigate("/");
+
+    } catch {}
+  });
 };
