@@ -5,7 +5,6 @@ const myStorage = localStorage;
 
 settings();
 startRouter();
-checkToken();
 addLogoutHandler();
 
 function addLogoutHandler() {
@@ -16,16 +15,18 @@ function addLogoutHandler() {
   });
 }
 
-function checkToken() {
-  if (myStorage.getItem("user") && isTokenValid()) {
-    window.router.navigate("movies.html");
-  } else window.router.navigate("/login");
+export async function checkToken() {
+  const logoutButton = document.querySelector(".logoutButton");
+  if (!myStorage.getItem("user") || !(await isTokenValid())) {
+    logoutButton.style.visibility = "hidden";
+    window.router.navigate("/login");
+  } else logoutButton.style.visibility = "visible";
 }
 
 //Vesie
-function isTokenValid() {
+async function isTokenValid() {
   const apiUrl = `${window.apiUrl}/api/authenticate/check-token`; //new endpoint to validate token from localStorage
-  fetch(apiUrl, {
+  const response = await fetch(apiUrl, {
     body: JSON.stringify({
       token: localStorage.getItem("user"),
     }),
@@ -33,15 +34,7 @@ function isTokenValid() {
     headers: {
       "Content-type": "application/json; charset=UTF-8",
     },
-  })
-    .then((Response) => Response.json())
-    .then((response) => {
-      console.log(response.tokenStatus);
-      if (response.tokenStatus === "valid") {
-        window.alert(
-          "You are already logged in. You are being redirected to movies."
-        );
-        window.router.navigate("/movies");
-      }
-    });
+  });
+  const responseJSON = await response.json();
+  return responseJSON.tokenStatus === "valid";
 }

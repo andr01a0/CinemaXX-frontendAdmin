@@ -5,6 +5,7 @@ import renderLogin from "./pages/login/login.js";
 import renderMovies from "./pages/movies/movies.js";
 import renderAddMovie from "./pages/addMovie/addMovie.js";
 import renderEditMovie from "./pages/movie/edit.js";
+import { checkToken } from "./index.js";
 
 export default () => {
   //const router = new Navigo("/", { hash: true });
@@ -13,28 +14,47 @@ export default () => {
   router
     .on({
       "/": () => {
-        // call updatePageLinks to let navigo handle the links
-        // when new links have been inserted into the dom
-        renderMain().then(router.updatePageLinks);
+        authenticationMiddleware(() => {
+          // call updatePageLinks to let navigo handle the links
+          // when new links have been inserted into the dom
+          renderMain().then(router.updatePageLinks);
+        });
       },
       about: () => {
-        renderAbout();
+        authenticationMiddleware(() => {
+          renderAbout();
+        });
       },
       login: () => {
-        renderLogin();
+        authenticationMiddleware(() => {
+          renderLogin();
+        });
       },
       movies: () => {
-        renderMovies().then(router.updatePageLinks);
+        authenticationMiddleware(() => {
+          renderMovies().then(router.updatePageLinks);
+        });
       },
       "/movie/:id/": ({ data, params }) => {
-        renderMovie(data.id);
+        authenticationMiddleware(() => {
+          renderMovie(data.id);
+        });
       },
       "movie/:id/edit": ({ data }) => {
-        renderEditMovie(data.id);
+        authenticationMiddleware(() => {
+          renderEditMovie(data.id);
+        });
       },
       addMovie: () => {
-        renderAddMovie();
+        authenticationMiddleware(() => {
+          renderAddMovie();
+        });
       },
     })
     .resolve();
 };
+
+async function authenticationMiddleware(next) {
+  await checkToken();
+  next();
+}
