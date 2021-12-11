@@ -6,6 +6,15 @@ const myStorage = localStorage;
 settings();
 startRouter();
 checkToken();
+addLogoutHandler();
+
+function addLogoutHandler() {
+  const button = document.querySelector("button");
+  button.addEventListener("click", () => {
+    localStorage.removeItem("user");
+    window.router.navigate("/login");
+  });
+}
 
 function checkToken() {
   if (myStorage.getItem("user") && isTokenValid()) {
