@@ -1,15 +1,15 @@
 export default () => {
-    const content = document.querySelector(".content");
-  
-    return fetch("./pages/addMovie/addMovie.html")
-      .then((response) => response.text())
-      .then((moviesHtml) => {
-        content.innerHTML = moviesHtml;
+  const content = document.querySelector(".content");
 
-        const form = document.querySelector("form");
+  return fetch("./pages/addMovie/addMovie.html")
+    .then((response) => response.text())
+    .then((moviesHtml) => {
+      content.innerHTML = moviesHtml;
+
+      const form = document.querySelector("form");
       form.addEventListener("submit", (event) => {
         event.preventDefault();
-        let movieUrl = `${window.apiUrl}/api/movie`
+        let movieUrl = `${window.apiUrl}/api/movie`;
 
         fetch(movieUrl, {
           method: "POST",
@@ -28,9 +28,8 @@ export default () => {
         })
           .then((Response) => Response.json())
           .then(({ message }) => alert(message));
-          window.router.navigate('/movies');
-          location.reload();
+        window.router.navigate("/movies");
+        location.reload();
       });
-      })
-
-    }
+    });
+};

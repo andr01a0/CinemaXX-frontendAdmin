@@ -12,7 +12,7 @@ export default () => {
       addButton.textContent = "Movie";
       addMovieContainer.appendChild(addButton);
       addButton.addEventListener("click", function () {
-        window.router.navigate('/addMovie');
+        window.router.navigate("/addMovie");
       });
 
       // Create movie list
@@ -23,15 +23,15 @@ export default () => {
         .then((movies) => {
           const movieContainer = document.querySelector(".movie-container");
 
-          // List title
+          // Movie title in table
           movies.forEach((movie) => {
-            const movieTable = document.querySelector('.table');
+            const movieTable = document.querySelector(".table");
             const movieRow = document.createElement("tr");
             movieTable.appendChild(movieRow);
             const movieCol = document.createElement("td");
             movieRow.appendChild(movieCol);
             movieRow.textContent = movie.title;
-            
+
             // Edit button
             const editButton = document.createElement("button");
             editButton.textContent = "Edit";
@@ -39,7 +39,7 @@ export default () => {
             editCol.appendChild(editButton);
             movieRow.appendChild(editCol);
             editButton.addEventListener("click", function () {
-              window.router.navigate(`movie/${movie.movieId}/edit`)
+              window.router.navigate(`movie/${movie.movieId}/edit`);
             });
 
             // Delete button
@@ -55,7 +55,7 @@ export default () => {
               );
               const { message } = await deleteResponse.json();
               alert(message);
-              window.router.navigate('/movies');
+              window.router.navigate("/movies");
               location.reload();
             });
           });

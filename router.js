@@ -6,8 +6,7 @@ import renderMovies from "./pages/movies/movies.js";
 import renderAddMovie from "./pages/addMovie/addMovie.js";
 import renderEditMovie from "./pages/movie/edit.js";
 
-
-export default function () {
+export default () => {
   //const router = new Navigo("/", { hash: true });
   window.router = new Navigo("/", { hash: true });
 
@@ -38,4 +37,4 @@ export default function () {
       },
     })
     .resolve();
-}
+};

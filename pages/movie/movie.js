@@ -11,8 +11,9 @@ export default (movieId) => {
         .then((movie) => {
           document.querySelector("h3").innerText = movie.title;
           document.querySelector("li.ageRestriction").innerHTML =
-            'Age restrction ' + movie.ageRestriction;
-          document.querySelector("li.rating").innerHTML = 'Critique score ' + movie.rating;
+            "Age restrction " + movie.ageRestriction;
+          document.querySelector("li.rating").innerHTML =
+            "Critique score " + movie.rating;
         });
     });
 };
