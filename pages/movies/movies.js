@@ -16,9 +16,7 @@ export default () => {
       });
 
       // Create movie list
-      fetch(
-        `${window.apiUrl}/api/movie?startRange=2021-10-01&endRange=2021-12-31`
-      )
+      fetch(`${window.apiUrl}/api/movie/`)
         .then((response) => response.json())
         .then((movies) => {
           const movieContainer = document.querySelector(".movie-container");
