@@ -27,9 +27,11 @@ export default () => {
           },
         })
           .then((Response) => Response.json())
-          .then(({ message }) => alert(message));
-        window.router.navigate("/movies");
-        location.reload();
+          .then(({ message }) => {
+            alert(message);
+            window.router.navigate("/movies");
+            //location.reload();
+          });
       });
     });
 };
