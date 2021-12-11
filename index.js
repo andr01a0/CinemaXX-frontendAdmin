@@ -9,7 +9,7 @@ checkToken();
 
 function checkToken() {
   if (myStorage.getItem("user") && isTokenValid()) {
-    window.router.navigate("index.html");
+    window.router.navigate("movies.html");
   } else window.router.navigate("/login");
 }
 

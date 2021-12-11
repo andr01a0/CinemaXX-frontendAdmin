@@ -34,7 +34,7 @@ export default async () => {
       const responseJson = await response.json();
 
       // Saving the JWT to local storage
-      localStorage.setItem("user", JSON.stringify(responseJson.token));
+      localStorage.setItem("user", responseJson.token);
       window.router.navigate("/");
     } catch {}
   });
