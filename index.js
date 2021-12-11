@@ -7,8 +7,8 @@ startRouter();
 const myStorage = localStorage;
 function checkToken() {
   if (myStorage.getItem("user") && isTokenValid()) {
-    location.href = "index.html";
-  } else location.href = "#/login";
+    window.router.navigate('index.html');
+  } else window.router.navigate('/login');
 }
 
 //Vesie

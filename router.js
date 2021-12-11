@@ -3,10 +3,12 @@ import renderAbout from "./pages/about/about.js";
 import renderMovie from "./pages/movie/movie.js";
 import renderLogin from "./pages/login/login.js";
 import renderMovies from "./pages/movies/movies.js";
+import renderAddMovie from "./pages/addMovie/addMovie.js";
 import renderEditMovie from "./pages/movie/edit.js";
 
-export default function () {
-  const router = new Navigo("/", { hash: true });
+export default () => {
+  //const router = new Navigo("/", { hash: true });
+  window.router = new Navigo("/", { hash: true });
 
   router
     .on({
@@ -30,6 +32,9 @@ export default function () {
       "movie/:id/edit": ({ data }) => {
         renderEditMovie(data.id);
       },
+      addMovie: () => {
+        renderAddMovie();
+      },
     })
     .resolve();
-}
+};

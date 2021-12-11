@@ -36,6 +36,6 @@ export default async (movieId) => {
     });
     const { message } = await movieResponse.json();
     alert(message);
-    location.href = "#/movies";
+    window.router.navigate("/movies");
   });
 };
